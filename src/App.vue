@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 import { initCollapses } from 'flowbite';
 import router from './router';
-
-type NavListType = {
-   name: string;
-   path: string;
-};
+import type { RouteNamedMap } from '../router';
 
 onMounted(() => {
    initCollapses();
 });
 
+type NavListType = {
+   name: keyof RouteNamedMap;
+   path: string;
+};
+
 const navList: NavListType[] = router
    .getRoutes()
-   .sort((a, b) => Number(a.meta.order) - Number(b.meta.order))
+   .sort((a, b) => a.meta.order - b.meta.order)
    .map(route => ({
-      name: route.name as string,
+      name: route.name as keyof RouteNamedMap,
       path: route.path
    }));
 </script>
@@ -61,11 +61,7 @@ const navList: NavListType[] = router
    </header>
 
    <main class="container px-4 mx-auto">
-      <router-view v-slot="{ Component, route }">
-         <transition :name="route.meta!.transition! as string">
-            <component :is="Component" />
-         </transition>
-      </router-view>
+      <RouterView />
    </main>
 </template>
 

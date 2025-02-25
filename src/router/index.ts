@@ -7,7 +7,8 @@ const routes: RouteRecordRaw[] = [
       name: 'home',
       component: HomeView,
       meta: {
-         order: 1
+         order: 1,
+         requiresAuth: false
       }
    },
    {
@@ -18,7 +19,8 @@ const routes: RouteRecordRaw[] = [
             name: 'about',
             component: () => import('../views/AboutView.vue'),
             meta: {
-               order: 2
+               order: 2,
+               requiresAuth: false
             }
          },
          {
@@ -26,7 +28,8 @@ const routes: RouteRecordRaw[] = [
             name: 'team',
             component: () => import('../views/TeamView.vue'),
             meta: {
-               order: 3
+               order: 3,
+               requiresAuth: false
             }
          }
       ]
